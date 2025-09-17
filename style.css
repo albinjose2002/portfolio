@@ -1,0 +1,86 @@
+    <style>
+      /* Profile image floating outside frame */
+      .profile-img-outer {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: -4rem;
+        margin-bottom: 2rem;
+        z-index: 2;
+      }
+      .profile-img {
+        width: 17rem;
+        height: 17rem;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 8px solid #fff;
+        box-shadow: 0 12px 48px 0 rgba(59, 130, 246, 0.25),
+          0 2px 16px 0 rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        transition: transform 0.4s, box-shadow 0.4s;
+        position: relative;
+        z-index: 2;
+      }
+      .dark .profile-img {
+        border-color: #374151;
+        box-shadow: 0 12px 48px 0 rgba(37, 99, 235, 0.25),
+          0 2px 16px 0 rgba(0, 0, 0, 0.18);
+      }
+      .profile-img:hover {
+        transform: scale(1.07) rotate(-2deg);
+        box-shadow: 0 20px 60px 0 rgba(59, 130, 246, 0.35);
+      }
+      .profile-img-glow {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 19rem;
+        height: 19rem;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #3b82f6 0%,
+          #6366f1 60%,
+          transparent 100%
+        );
+        opacity: 0.18;
+        z-index: 1;
+        filter: blur(12px);
+        pointer-events: none;
+      }
+      .skill-river {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: visible;
+        gap: 20px;
+        padding: 10px 0;
+        justify-content: center;
+      }
+      .skill-box {
+        padding: 12px 24px;
+        background-color: #4f46e5;
+        color: white;
+        font-weight: bold;
+        border-radius: 12px;
+        flex-shrink: 0;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .skill-box:hover {
+        transform: scale(1.1);
+      }
+      .dark .skill-box {
+        background-color: #2563eb;
+      }
+      @keyframes scrollSkills {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
