@@ -1,280 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Albin Jose - Portfolio</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Albin Jose - Portfolio</title>
 
-  <!-- Early theme detection to prevent flicker -->
-  <script>
-    (function() {
-      try {
-        var theme = localStorage.getItem("theme");
-        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (theme === "dark" || (!theme && prefersDark)) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      } catch(e) {}
-    })();
-  </script>
+    <!-- Early theme detection -->
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          if (theme === "dark" || (!theme && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
 
-  <!-- Preconnect for faster CDN access -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ["Inter", "sans-serif"],
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
           },
         },
-      },
-    };
-  </script>
+      };
+    </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    .skill-river {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow: hidden;
-      animation: scrollSkills 20s linear infinite;
-      gap: 20px;
-      padding: 10px 0;
-    }
-    .skill-box {
-      padding: 12px 24px;
-      background-color: #4f46e5;
-      color: white;
-      font-weight: bold;
-      border-radius: 12px;
-      flex-shrink: 0;
-      font-size: 1.1rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .skill-box:hover { transform: scale(1.1); }
-    .dark .skill-box { background-color: #2563eb; }
-    @keyframes scrollSkills {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500">
+    <style>
+      /* Profile image floating outside frame */
+      .profile-img-outer {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: -4rem;
+        margin-bottom: 2rem;
+        z-index: 2;
+      }
+      .profile-img {
+        width: 17rem;
+        height: 17rem;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 8px solid #fff;
+        box-shadow: 0 12px 48px 0 rgba(59, 130, 246, 0.25),
+          0 2px 16px 0 rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        transition: transform 0.4s, box-shadow 0.4s;
+        position: relative;
+        z-index: 2;
+      }
+      .dark .profile-img {
+        border-color: #374151;
+        box-shadow: 0 12px 48px 0 rgba(37, 99, 235, 0.25),
+          0 2px 16px 0 rgba(0, 0, 0, 0.18);
+      }
+      .profile-img:hover {
+        transform: scale(1.07) rotate(-2deg);
+        box-shadow: 0 20px 60px 0 rgba(59, 130, 246, 0.35);
+      }
+      .profile-img-glow {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 19rem;
+        height: 19rem;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          #3b82f6 0%,
+          #6366f1 60%,
+          transparent 100%
+        );
+        opacity: 0.18;
+        z-index: 1;
+        filter: blur(12px);
+        pointer-events: none;
+      }
+      .skill-river {
+        display: flex;
+        flex-wrap: wrap;
+        overflow: visible;
+        gap: 20px;
+        padding: 10px 0;
+        justify-content: center;
+      }
+      .skill-box {
+        padding: 12px 24px;
+        background-color: #4f46e5;
+        color: white;
+        font-weight: bold;
+        border-radius: 12px;
+        flex-shrink: 0;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .skill-box:hover {
+        transform: scale(1.1);
+      }
+      .dark .skill-box {
+        background-color: #2563eb;
+      }
+      @keyframes scrollSkills {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500"
+  >
+    <!-- Navbar -->
+    <header
+      class="sticky top-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur shadow-md z-50"
+    >
+      <div class="container mx-auto flex justify-between items-center p-4">
+        <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+          Albin Jose
+        </h1>
+        <nav>
+          <ul class="flex gap-6 font-medium">
+            <li>
+              <a
+                href="#about"
+                class="hover:text-blue-500 dark:hover:text-blue-300"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#skills"
+                class="hover:text-blue-500 dark:hover:text-blue-300"
+                >Skills</a
+              >
+            </li>
+            <li>
+              <a
+                href="#projects"
+                class="hover:text-blue-500 dark:hover:text-blue-300"
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a
+                href="#experience"
+                class="hover:text-blue-500 dark:hover:text-blue-300"
+                >Experience</a
+              >
+            </li>
+            <li>
+              <a
+                href="#education"
+                class="hover:text-blue-500 dark:hover:text-blue-300"
+                >Education</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="hover:text-blue-500 dark:hover:text-blue-300"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </nav>
+        <!-- Dark/Light Toggle -->
+        <button
+          id="themeToggleBtn"
+          aria-label="Toggle dark mode"
+          class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 transition-colors"
+        >
+          <span id="themeToggleIcon"></span>
+        </button>
+      </div>
+    </header>
 
-  <!-- Navbar -->
-  <header class="sticky top-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur shadow-md z-50">
-    <div class="container mx-auto flex justify-between items-center p-4">
-      <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Albin Jose</h1>
-      <nav>
-        <ul class="flex gap-6 font-medium">
-          <li><a href="#about" class="hover:text-blue-500 dark:hover:text-blue-300">About</a></li>
-          <li><a href="#skills" class="hover:text-blue-500 dark:hover:text-blue-300">Skills</a></li>
-          <li><a href="#projects" class="hover:text-blue-500 dark:hover:text-blue-300">Projects</a></li>
-          <li><a href="#experience" class="hover:text-blue-500 dark:hover:text-blue-300">Experience</a></li>
-          <li><a href="#education" class="hover:text-blue-500 dark:hover:text-blue-300">Education</a></li>
-          <li><a href="#contact" class="hover:text-blue-500 dark:hover:text-blue-300">Contact</a></li>
+    <!-- About / Hero -->
+    <section
+      id="about"
+      class="py-10 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900"
+    >
+      <div
+        class="container mx-auto grid md:grid-cols-2 gap-8 items-center px-4 lg:px-12"
+      >
+        <!-- Image (Left Side) -->
+        <!-- <div class="flex flex-col items-center md:items-start"> -->
+          <div class="relative group">
+            <div class="profile-img-outer" style="margin-top: -2rem; margin-bottom: ">
+              <span class="profile-img-glow"></span>
+              <img src="albin.png" alt="Albin Jose" class="profile-img" />
+            </div>
+          <!-- </div> -->
+          <!-- Social Icons -->
+          <!-- <div class="flex justify-center md:justify-start gap-4 mt-2">
+            <a href="https://linkedin.com/in/albinjose2002" target="_blank" aria-label="LinkedIn" class="hover:scale-110 transition">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="text-blue-600 dark:text-blue-400"><rect width="24" height="24" rx="6" fill="currentColor" fill-opacity="0.1"/><path d="M16.5 8.25C17.1904 8.25 17.75 7.69036 17.75 7C17.75 6.30964 17.1904 5.75 16.5 5.75C15.8096 5.75 15.25 6.30964 15.25 7C15.25 7.69036 15.8096 8.25 16.5 8.25Z" fill="currentColor"/><rect x="7.25" y="10.25" width="2.5" height="7.5" rx="1.25" fill="currentColor"/><path d="M12 10.25C10.7574 10.25 9.75 11.2574 9.75 12.5V17.5C9.75 18.7426 10.7574 19.75 12 19.75C13.2426 19.75 14.25 18.7426 14.25 17.5V12.5C14.25 11.2574 13.2426 10.25 12 10.25Z" fill="currentColor"/></svg>
+            </a>
+            <a href="https://github.com/albinjose2002" target="_blank" aria-label="GitHub" class="hover:scale-110 transition">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="text-gray-800 dark:text-gray-200"><rect width="24" height="24" rx="6" fill="currentColor" fill-opacity="0.1"/><path d="M12 3C7.03 3 3 7.03 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 7.03 16.97 3 12 3ZM12 19.5C8.13 19.5 5 16.37 5 12.5C5 8.63 8.13 5.5 12 5.5C15.87 5.5 19 8.63 19 12.5C19 16.37 15.87 19.5 12 19.5ZM12 7.5C10.07 7.5 8.5 9.07 8.5 11C8.5 12.93 10.07 14.5 12 14.5C13.93 14.5 15.5 12.93 15.5 11C15.5 9.07 13.93 7.5 12 7.5ZM12 13C10.9 13 10 12.1 10 11C10 9.9 10.9 9 12 9C13.1 9 14 9.9 14 11C14 12.1 13.1 13 12 13Z" fill="currentColor"/></svg>
+            </a>
+            <a href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram" class="hover:scale-110 transition">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="text-pink-500"><rect width="24" height="24" rx="6" fill="currentColor" fill-opacity="0.1"/><path d="M7.75 12C7.75 9.37665 9.87665 7.25 12.5 7.25C15.1234 7.25 17.25 9.37665 17.25 12C17.25 14.6234 15.1234 16.75 12.5 16.75C9.87665 16.75 7.75 14.6234 7.75 12ZM12.5 8.75C10.7051 8.75 9.25 10.2051 9.25 12C9.25 13.7949 10.7051 15.25 12.5 15.25C14.2949 15.25 15.75 13.7949 15.75 12C15.75 10.2051 14.2949 8.75 12.5 8.75ZM17.75 8.25C18.4404 8.25 19 7.69036 19 7C19 6.30964 18.4404 5.75 17.75 5.75C17.0596 5.75 16.5 6.30964 16.5 7C16.5 7.69036 17.0596 8.25 17.75 8.25Z" fill="currentColor"/></svg>
+            </a>
+          </div> -->
+        </div>
+
+        <!-- Text (Right Side) -->
+  <div class="md:text-left self-center flex flex-col justify-center items-start w-full">
+          <h2 class="text-4xl font-bold mb-2">
+            Hi, I'm
+            <span class="text-blue-600 dark:text-blue-400">Albin</span> 👋
+          </h2>
+          <p class="text-base text-gray-600 dark:text-gray-300 max-w-xl mb-2">
+            Aspiring <strong>Junior PHP Developer</strong> skilled in PHP and
+            web development. Passionate about building user-friendly solutions
+            and continuously learning new technologies.
+          </p>
+          <p class="mt-2 text-lg"><span id="typed-text"></span></p>
+          <div
+            class="mt-4 flex flex-wrap gap-3 md:justify-start justify-center"
+          >
+            <a
+              href="cv.pdf"
+              download
+              class="px-5 py-2.5 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+            >
+              CV
+            </a>
+            <a
+              href="https://linkedin.com/in/albinjose2002"
+              class="px-5 py-2.5 bg-gray-200 dark:bg-gray-700 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+            >
+              <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" class="text-blue-600 dark:text-blue-400"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm15.5 11.268h-3v-5.604c0-1.337-.025-3.063-1.868-3.063-1.868 0-2.154 1.459-2.154 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.841-1.563 3.039 0 3.6 2.001 3.6 4.601v5.595z"/></svg>
+            </a>
+            <a
+              href="https://github.com/albinjose2002"
+              class="px-5 py-2.5 bg-gray-200 dark:bg-gray-700 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+            >
+              <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" class="text-gray-800 dark:text-gray-200"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576 4.765-1.589 8.199-6.085 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+             <a
+              href="https://www.instagram.com/a.lb_.in._/?hl=en"
+              class="px-5 py-2.5 bg-gray-200 dark:bg-gray-700 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+            >
+              <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24" class="text-pink-500"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.131 4.602.425 3.635 1.392 2.668 2.359 2.374 3.532 2.315 4.808 2.256 6.088 2.243 6.497 2.243 12c0 5.503.013 5.912.072 7.192.059 1.276.353 2.449 1.32 3.416.967.967 2.14 1.261 3.416 1.32 1.28.059 1.689.072 7.192.072s5.912-.013 7.192-.072c1.276-.059 2.449-.353 3.416-1.32.967-.967 1.261-2.14 1.32-3.416.059-1.28.072-1.689.072-7.192s-.013-5.912-.072-7.192c-.059-1.276-.353-2.449-1.32-3.416C21.449.425 20.276.131 19 .072 17.72.013 17.311 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section
+      id="skills"
+      class="py-16 bg-gray-50 dark:bg-gray-800 overflow-hidden"
+    >
+      <h3 class="text-3xl font-semibold text-center mb-12">Skills</h3>
+      <div class="skill-river">
+        <span class="skill-box">HTML</span>
+        <span class="skill-box">CSS</span>
+        <span class="skill-box">JavaScript</span>
+        <span class="skill-box">PHP</span>
+        <span class="skill-box">CodeIgniter</span>
+        <span class="skill-box">Laravel</span>
+        <span class="skill-box">Bootstrap</span>
+        <span class="skill-box">Tailwind</span>
+        <span class="skill-box">SQL</span>
+        <span class="skill-box">Git</span>
+        <span class="skill-box">Linux</span>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-16 container mx-auto">
+      <h3 class="text-3xl font-semibold text-center mb-12">Projects</h3>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow">
+          <h4 class="text-xl font-bold mb-2">Water Tank Cleaning CRM</h4>
+          <p class="text-gray-600 dark:text-gray-300 mb-3">
+            Web app built with PHP &amp; CodeIgniter featuring CRUD operations,
+            service management, and optimized queries.
+          </p>
+          <a
+            href="https://hygienictank.sanluigibhavan.com/"
+            class="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+            >View Project →</a
+          >
+        </div>
+        <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow">
+          <h4 class="text-xl font-bold mb-2">Company Portfolio</h4>
+          <p class="text-gray-600 dark:text-gray-300 mb-3">
+            Responsive website built using HTML, CSS &amp; Bootstrap for
+            optimized cross-browser performance.
+          </p>
+          <a
+            href="https://cordsinnovations.com/"
+            class="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+            >View Project →</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="py-16 container mx-auto">
+      <h3 class="text-3xl font-semibold text-center mb-12">Work Experience</h3>
+      <div
+        class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow max-w-3xl mx-auto"
+      >
+        <h4 class="text-xl font-bold">
+          Junior PHP Developer - CORDS INNOVATIONS
+        </h4>
+        <p class="text-gray-500 dark:text-gray-400 mb-4">Nov 2024 - Present</p>
+        <ul
+          class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2"
+        >
+          <li>
+            Assisted in building customized software solutions for business
+            operations.
+          </li>
+          <li>Worked on backend development with PHP, CodeIgniter, and SQL.</li>
+          <li>Ensured efficient data management and smooth performance.</li>
         </ul>
-      </nav>
-      <!-- Dark/Light Toggle -->
-      <button id="themeToggleBtn" aria-label="Toggle dark mode" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 border border-gray-400 dark:border-gray-600 transition-colors">
-        <span id="themeToggleIcon"></span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="about" class="text-center py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
-    <h2 class="text-4xl font-bold mb-3">Hi, I'm <span class="text-blue-600 dark:text-blue-400">Albin</span> 👋</h2>
-    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-      Aspiring <strong>Junior PHP Developer</strong> skilled in PHP and web development. Passionate about building user-friendly solutions and continuously learning new technologies.
-    </p>
-    <p class="mt-2 text-xl"><span id="typed-text"></span></p>
-    <div class="mt-6 space-x-4 flex flex-wrap justify-center">
-      <a href="cv.pdf" download class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">Download CV</a>
-      <a href="https://linkedin.com/in/albinjose2002" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition">LinkedIn</a>
-      <a href="https://github.com/albinjose2002" class="px-6 py-3 bg-gray-200 dark:bg-gray-700 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition">GitHub</a>
-    </div>
-  </section>
-
-  <!-- Skills River -->
-  <section id="skills" class="py-16 bg-gray-50 dark:bg-gray-800 overflow-hidden">
-    <h3 class="text-3xl font-semibold text-center mb-12">Skills</h3>
-    <div class="skill-river">
-      <span class="skill-box">HTML</span>
-      <span class="skill-box">CSS</span>
-      <span class="skill-box">JavaScript</span>
-      <span class="skill-box">PHP</span>
-      <span class="skill-box">CodeIgniter</span>
-      <span class="skill-box">Bootstrap</span>
-      <span class="skill-box">Tailwind</span>
-      <span class="skill-box">SQL</span>
-      <span class="skill-box">Git</span>
-      <span class="skill-box">Linux</span>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="py-16 container mx-auto">
-    <h3 class="text-3xl font-semibold text-center mb-12">Projects</h3>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow">
-        <h4 class="text-xl font-bold mb-2">Water Tank Cleaning CRM</h4>
-        <p class="text-gray-600 dark:text-gray-300 mb-3">Web app built with PHP &amp; CodeIgniter featuring CRUD operations, service management, and optimized queries.</p>
-        <a href="https://hygienictank.sanluigibhavan.com/" class="text-blue-600 dark:text-blue-400 font-medium hover:underline">View Project →</a>
       </div>
-      <div class="p-6 bg-white dark:bg-gray-700 rounded-xl shadow">
-        <h4 class="text-xl font-bold mb-2">Company Portfolio</h4>
-        <p class="text-gray-600 dark:text-gray-300 mb-3">Responsive website built using HTML, CSS &amp; Bootstrap for optimized cross-browser performance.</p>
-        <a href="https://cordsinnovations.com/" class="text-blue-600 dark:text-blue-400 font-medium hover:underline">View Project →</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Experience -->
-  <section id="experience" class="py-16 container mx-auto">
-    <h3 class="text-3xl font-semibold text-center mb-12">Work Experience</h3>
-    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow max-w-3xl mx-auto">
-      <h4 class="text-xl font-bold">Junior PHP Developer - CORDS INNOVATIONS</h4>
-      <p class="text-gray-500 dark:text-gray-400 mb-4">Nov 2024 - Present</p>
-      <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
-        <li>Assisted in building customized software solutions for business operations.</li>
-        <li>Worked on backend development with PHP, CodeIgniter, and SQL.</li>
-        <li>Ensured efficient data management and smooth performance.</li>
-      </ul>
-    </div>
-  </section>
+    <!-- Education -->
+    <section id="education" class="py-16 bg-gray-50 dark:bg-gray-800">
+      <h3 class="text-3xl font-semibold text-center mb-12">Education</h3>
+      <div class="grid md:grid-cols-3 gap-6 container mx-auto text-center">
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+          <h4 class="font-bold">B.Tech ECE</h4>
+          <p class="text-gray-500 dark:text-gray-400">APJAKTU</p>
+          <p class="text-gray-700 dark:text-gray-300">CGPA: 6.39</p>
+        </div>
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+          <h4 class="font-bold">Higher Secondary</h4>
+          <p class="text-gray-500 dark:text-gray-400">Kerala State Board</p>
+          <p class="text-gray-700 dark:text-gray-300">75%</p>
+        </div>
+        <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
+          <h4 class="font-bold">Secondary</h4>
+          <p class="text-gray-500 dark:text-gray-400">State</p>
+          <p class="text-gray-700 dark:text-gray-300">98%</p>
+        </div>
+      </div>
+    </section>
 
-  <!-- Education -->
-  <section id="education" class="py-16 bg-gray-50 dark:bg-gray-800">
-    <h3 class="text-3xl font-semibold text-center mb-12">Education</h3>
-    <div class="grid md:grid-cols-3 gap-6 container mx-auto text-center">
-      <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
-        <h4 class="font-bold">B.Tech ECE</h4>
-        <p class="text-gray-500 dark:text-gray-400">APJAKTU</p>
-        <p class="text-gray-700 dark:text-gray-300">CGPA: 6.39</p>
-      </div>
-      <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
-        <h4 class="font-bold">Higher Secondary</h4>
-        <p class="text-gray-500 dark:text-gray-400">Kerala State Board</p>
-        <p class="text-gray-700 dark:text-gray-300">75%</p>
-      </div>
-      <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow">
-        <h4 class="font-bold">Secondary</h4>
-        <p class="text-gray-500 dark:text-gray-400">State</p>
-        <p class="text-gray-700 dark:text-gray-300">98%</p>
-      </div>
-    </div>
-  </section>
+    <!-- Contact -->
+    <section
+      id="contact"
+      class="py-12 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+    >
+      <div
+        class="container mx-auto px-6 lg:px-20 grid md:grid-cols-2 gap-10 items-start"
+      >
+        <!-- Contact Info -->
+        <div>
+          <h4 class="text-lg font-semibold mb-2">Get In Touch</h4>
+          <h3 class="text-3xl font-bold mb-4">Contact Me</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            Have a question? Let’s build something great together.
+          </p>
+          <div class="flex gap-4 flex-wrap">
+            <a
+              href="mailto:albinjose225@gmail.com"
+              class="px-5 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition flex items-center gap-2"
+            >
+              📧 Email
+            </a>
+            <a
+              href="https://github.com/albinjose2002"
+              target="_blank"
+              class="px-5 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition flex items-center gap-2"
+            >
+              🐙 GitHub
+            </a>
+          </div>
+        </div>
 
-<!-- Contact -->
-<section id="contact" class="py-12 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-  <div class="container mx-auto px-6 lg:px-20 grid md:grid-cols-2 gap-10 items-start">
-    
-    <!-- Contact Info -->
-    <div>
-      <h4 class="text-lg font-semibold mb-2">Get In Touch</h4>
-      <h3 class="text-3xl font-bold mb-4">Contact Me</h3>
-      <p class="text-gray-600 dark:text-gray-400 mb-6">
-        Have a project or a question? Let’s build something great together.
+        <!-- Contact Form -->
+        <form id="contactForm" class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              required
+              class="w-full p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors duration-300"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your Email"
+              required
+              class="w-full p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors duration-300"
+            />
+          </div>
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="Enter your message"
+            required
+            class="w-full p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors duration-300"
+          ></textarea>
+          <button
+            type="submit"
+            class="w-full py-3 rounded-md font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-400 hover:opacity-90 transition flex items-center justify-center gap-2"
+          >
+            Send Message
+          </button>
+        </form>
+        <p id="formMessage" class="mt-4 text-sm"></p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-100 dark:bg-gray-900 py-6 text-center border-t border-gray-200 dark:border-gray-700"
+    >
+      <p class="text-gray-500 dark:text-gray-400">
+        © 2025 Albin Jose | All Rights Reserved
       </p>
-      <div class="flex gap-4 flex-wrap">
-        <a href="mailto:albinjose225@gmail.com" 
-           class="px-5 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition flex items-center gap-2">
-          📧 Email
-        </a>
-        <a href="https://github.com/albinjose2002" target="_blank" 
-           class="px-5 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition flex items-center gap-2">
-          🐙 GitHub
-        </a>
-      </div>
-    </div>
-    
-    <!-- Contact Form -->
-    <form id="contactForm" class="space-y-4">
-      <div class="grid md:grid-cols-2 gap-4">
-        <input type="text" name="name" placeholder="Enter your name" required 
-               class="w-full p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors duration-300">
-        <input type="email" name="email" placeholder="Enter your Email" required 
-               class="w-full p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors duration-300">
-      </div>
-      <textarea name="message" rows="4" placeholder="Enter your message" required 
-                class="w-full p-3 rounded-md bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors duration-300"></textarea>
-      <button type="submit" 
-              class="w-full py-3 rounded-md font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-400 hover:opacity-90 transition flex items-center justify-center gap-2">
-        🚀 Send Message
-      </button>
-    </form>
+    </footer>
 
-    <!-- Message Placeholder -->
-    <p id="formMessage" class="mt-4 text-sm"></p>
-  </div>
-</section>
-
-
-  <!-- Footer -->
-  <footer class="bg-gray-100 dark:bg-gray-900 py-6 text-center border-t border-gray-200 dark:border-gray-700">
-    <p class="text-gray-500 dark:text-gray-400">© 2025 Albin Jose | Junior PHP Developer</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js" defer></script>
-  <script defer>
-    window.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('themeToggleBtn');
-      var icon = document.getElementById('themeToggleIcon');
-      function setIcon() {
-        if(document.documentElement.classList.contains('dark')) {
-          icon.innerHTML = '<svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>';
-        } else {
-          icon.innerHTML = '<svg width="24" height="24" fill="orange" viewBox="0 0 24 24"><path d="M12 4.5V2m0 20v-2.5M4.5 12H2m20 0h-2.5M6.34 6.34l-1.77-1.77m15.86 15.86l-1.77-1.77M6.34 17.66l-1.77 1.77m15.86-15.86l-1.77 1.77M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>';
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"
+      defer
+    ></script>
+    <script defer>
+      window.addEventListener("DOMContentLoaded", function () {
+        // Stop skill river animation after it finishes
+        var skillRiver = document.querySelector(".skill-river");
+        if (skillRiver) {
+          skillRiver.addEventListener("animationend", function () {
+            skillRiver.classList.add("stopped");
+          });
         }
-      }
-      function updateThemeFromStorageOrSystem() {
-        var theme = localStorage.getItem('theme');
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (theme === 'dark' || (!theme && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
+        var btn = document.getElementById("themeToggleBtn");
+        var icon = document.getElementById("themeToggleIcon");
+        function setIcon() {
+          if (document.documentElement.classList.contains("dark")) {
+            icon.innerHTML =
+              '<svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>';
+          } else {
+            icon.innerHTML =
+              '<svg width="24" height="24" fill="orange" viewBox="0 0 24 24"><path d="M12 4.5V2m0 20v-2.5M4.5 12H2m20 0h-2.5M6.34 6.34l-1.77-1.77m15.86 15.86l-1.77-1.77M6.34 17.66l-1.77 1.77m15.86-15.86l-1.77 1.77M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>';
+          }
         }
-        setIcon();
-      }
-      if(btn && icon) {
-        updateThemeFromStorageOrSystem();
-        btn.addEventListener('click', function() {
-          var html = document.documentElement;
-          var isDark = html.classList.toggle('dark');
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        function updateThemeFromStorageOrSystem() {
+          var theme = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+          ).matches;
+          if (theme === "dark" || (!theme && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
           setIcon();
-        });
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        }
+        if (btn && icon) {
           updateThemeFromStorageOrSystem();
-        });
-        new MutationObserver(setIcon).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-      }
-      setTimeout(setIcon, 0);
+          btn.addEventListener("click", function () {
+            var html = document.documentElement;
+            var isDark = html.classList.toggle("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            setIcon();
+          });
+          window
+            .matchMedia("(prefers-color-scheme: dark)")
+            .addEventListener("change", function () {
+              updateThemeFromStorageOrSystem();
+            });
+          new MutationObserver(setIcon).observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+          });
+        }
+        setTimeout(setIcon, 0);
 
-      // Typed.js animation
-      if (window.Typed) {
-        new Typed('#typed-text', {
-          strings: [' PHP Developer', 'Web Developer'],
-          typeSpeed: 50,
-          backSpeed: 30,
-          loop: true
-        });
-      }
-    });
-  </script>
-</body>
+        // Typed.js animation
+        if (window.Typed) {
+          new Typed("#typed-text", {
+            strings: [" PHP Developer", "Web Developer"],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
