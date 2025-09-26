@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Projects - Albin Jose</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: #f8fafc;
+      color: #222;
+      font-family: 'Inter', sans-serif;
+    }
+    .project-section-modern {
+      background: linear-gradient(120deg, #f0f4ff 0%, #e0e7ef 40%, #a7f3d0 80%, #f8fafc 100%);
+      border-radius: 2rem;
+      padding: 2rem 1rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+      margin-bottom: 2rem;
+    }
+    .project-card-modern {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px 0 rgba(99,102,241,0.10), 0 1.5px 6px 0 rgba(0,0,0,0.04);
+      transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+      border: none;
+    }
+    .project-card-modern:hover {
+      transform: translateY(-8px) scale(1.025);
+      box-shadow: 0 8px 32px 0 rgba(99,102,241,0.18), 0 4px 16px 0 rgba(0,0,0,0.10);
+    }
+    @media (max-width: 767px) {
+      .project-section-modern {
+        padding: 1rem 0.2rem;
+      }
+      .project-card-modern {
+        border-radius: 1rem;
+      }
+    }
+    body.dark-mode {
+      background: #181a1b !important;
+      color: #f1f3f6 !important;
+    }
+    .dark-mode .project-section-modern {
+      background: linear-gradient(120deg, #23272b 0%, #181a1b 40%, #2563eb 80%, #181a1b 100%);
+    }
+    .dark-mode .project-card-modern {
+      background: rgba(35,39,43,0.85);
+      color: #f1f3f6;
+      box-shadow: 0 4px 24px 0 rgba(37,99,235,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.18);
+    }
+    .dark-mode .project-card-modern:hover {
+      box-shadow: 0 12px 32px 0 rgba(37,99,235,0.28), 0 4px 16px 0 rgba(0,0,0,0.18);
+    }
+    .dark-mode .project-card-modern .card-title,
+    .dark-mode .project-card-modern .card-text {
+      color: #f1f3f6 !important;
+    }
+    .dark-mode .btn-outline-primary {
+      color: #7abaff;
+      border-color: #7abaff;
+    }
+    .dark-mode .btn-outline-primary:hover {
+      background: #7abaff;
+      color: #23272b;
+    }
+    .dark-mode .btn-outline-dark {
+      color: #f1f3f6;
+      border-color: #f1f3f6;
+    }
+    .dark-mode .btn-outline-dark:hover {
+      background: #f1f3f6;
+      color: #23272b;
+    }
+    .dark-mode .navbar, .dark-mode .bg-white, .dark-mode footer {
+      background: #23272b !important;
+      color: #f1f3f6 !important;
+      border-color: #334155 !important;
+    }
+    .dark-mode .navbar-brand, .dark-mode .nav-link, .dark-mode .text-muted {
+      color: #f1f3f6 !important;
+    }
+    .dark-mode .nav-link.active {
+      color: #7abaff !important;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="index.html">Albin Jose</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+       <button id="themeToggleBtn" class="btn btn-outline-secondary ms-3" aria-label="Toggle dark mode">
+          <span id="themeToggleIcon">🌙</span>
+        </button>
+    </div>
+  </nav>
+  <section class="container project-section-modern mt-5 mb-5">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="font-size:2.2rem; background: linear-gradient(90deg, #6366f1 0%, #06b6d4 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">All Projects</h2>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <!-- Example Project Card -->
+      <div class="col-md-6">
+        <div class="card project-card-modern h-100 border-0 shadow-lg">
+          <div class="row g-0 align-items-center flex-md-row flex-column">
+            <div class="col-md-5 text-center p-4">
+              <img src="cords.png" alt="Company Portfolio Screenshot" class="img-fluid rounded-4 shadow" style="max-height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+            </div>
+            <div class="col-md-7 p-4">
+              <h4 class="card-title fw-bold mb-2" style="font-size:1.3rem; letter-spacing:0.5px; background: linear-gradient(90deg, #6366f1 0%, #06b6d4 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">Company Portfolio</h4>
+              <p class="card-text mb-3">Responsive website built using HTML, CSS &amp; Bootstrap for optimized cross-browser performance.</p>
+              <a href="https://cordsinnovations.com/" class="btn btn-outline-primary mb-1">Site Website</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card project-card-modern h-100 border-0 shadow-lg">
+          <div class="row g-0 align-items-center flex-md-row flex-column">
+            <div class="col-md-5 text-center p-4">
+              <img src="hygeinic.png" alt="Hygeinic Tank Screenshot" class="img-fluid rounded-4 shadow" style="max-height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+            </div>
+            <div class="col-md-7 p-4">
+              <h4 class="card-title fw-bold mb-2" style="font-size:1.3rem; letter-spacing:0.5px; background: linear-gradient(90deg, #6366f1 0%, #06b6d4 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">Hygeinic Tank</h4>
+              <p class="card-text mb-3">Web app built with PHP &amp; CodeIgniter featuring CRUD operations, service management, and optimized queries.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <a href="https://hygienictank.sanluigibhavan.com" class="btn btn-outline-primary mb-1">Site Website</a>
+                <a href="https://hygienictank.sanluigibhavan.com/admin/login" class="btn btn-outline-dark mb-1">Admin Panel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card project-card-modern h-100 border-0 shadow-lg">
+          <div class="row g-0 align-items-center flex-md-row flex-column">
+            <div class="col-md-5 text-center p-4">
+              <img src="calc.png" alt="Simple Calculator Screenshot" class="img-fluid rounded-4 shadow" style="max-height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+            </div>
+            <div class="col-md-7 p-4">
+              <h4 class="card-title fw-bold mb-2" style="font-size:1.3rem; letter-spacing:0.5px; background: linear-gradient(90deg, #6366f1 0%, #06b6d4 50%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent;">Simple Calculator</h4>
+              <p class="card-text mb-3">Developed a simple Calculator with basic functionalities</p>
+              <a href="https://simple-calculator-bice-eight.vercel.app/" class="btn btn-outline-dark mb-1">View Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add more project cards here as needed -->
+    </div>
+    <div class="text-center mt-5">
+      <a href="index.html" class="btn btn-lg btn-primary">Back to Home</a>
+    </div>
+  </section>
+  <footer class="bg-white border-top py-4 text-center">
+    <p class="text-muted mb-0">© 2025 Albin Jose | All Rights Reserved</p>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Theme toggle logic
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    function setTheme(dark) {
+      if (dark) {
+        document.body.classList.add('dark-mode');
+        themeToggleIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        themeToggleIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    // Detect preferred theme and sync with localStorage
+    (function () {
+      let theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      setTheme(theme === 'dark');
+      // Listen for changes to localStorage from other tabs/pages
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'theme') {
+          setTheme(e.newValue === 'dark');
+        }
+      });
+    })();
+    themeToggleBtn.addEventListener('click', function () {
+      setTheme(!document.body.classList.contains('dark-mode'));
+    });
+  </script>
+</body>
+</html>

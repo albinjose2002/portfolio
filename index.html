@@ -28,6 +28,21 @@
         </button>
       </div>
     <style>
+      /* Project card and image hover effects */
+      .project-card-modern {
+        transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+      }
+      .project-card-modern:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 12px 32px 0 rgba(99,102,241,0.18), 0 4px 16px 0 rgba(0,0,0,0.12);
+      }
+      .project-card-modern img {
+        transition: transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.4s;
+      }
+      .project-card-modern:hover img {
+        transform: scale(1.07) rotate(-2deg);
+        box-shadow: 0 8px 32px 0 rgba(59,130,246,0.18), 0 2px 16px 0 rgba(0,0,0,0.10);
+      }
       body.dark-mode {
         background: #181a1b !important;
         color: #f1f3f6 !important;
@@ -103,13 +118,19 @@
           localStorage.setItem('theme', 'light');
         }
       }
-      // Detect preferred theme
+      // Detect preferred theme and sync with localStorage
       (function () {
         let theme = localStorage.getItem('theme');
         if (!theme) {
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
         setTheme(theme === 'dark');
+        // Listen for changes to localStorage from other tabs/pages
+        window.addEventListener('storage', function(e) {
+          if (e.key === 'theme') {
+            setTheme(e.newValue === 'dark');
+          }
+        });
       })();
       themeToggleBtn.addEventListener('click', function () {
         setTheme(!document.body.classList.contains('dark-mode'));
@@ -138,7 +159,8 @@
                 <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576 4.765-1.589 8.199-6.085 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               </a>
               <a href="https://www.instagram.com/a.lb_.in._/?hl=en" class="btn btn-outline-danger" target="_blank" aria-label="Instagram">
-                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.131 4.602.425 3.635 1.392 2.668 2.359 2.374 3.532 2.315 4.808 2.256 6.088 2.243 6.497 2.243 12c0 5.503.013 5.912.072 7.192.059 1.276.353 2.449 1.32 3.416.967.967 2.14 1.261 3.416 1.32 1.28.059 1.689.072 7.192.072s5.912-.013 7.192-.072c1.276-.059 2.449-.353 3.416-1.32.967-.967 1.261-2.14 1.32-3.416.059-1.28.072-1.689.072-7.192s-.013-5.912-.072-7.192c-.059-1.276-.353-2.449-1.32-3.416C21.449.425 20.276.131 19 .072 17.72.013 17.311 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                <!-- <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.069 1.646.069 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.069-4.85.069s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.131 4.602.425 3.635 1.392 2.668 2.359 2.374 3.532 2.315 4.808 2.256 6.088 2.243 6.497 2.243 12c0 5.503.013 5.912.072 7.192.059 1.276.353 2.449 1.32 3.416.967.967 2.14 1.261 3.416 1.32 1.28.059 1.689.072 7.192.072s5.912-.013 7.192-.072c1.276-.059 2.449-.353 3.416-1.32.967-.967 1.261-2.14 1.32-3.416.059-1.28.072-1.689.072-7.192s-.013-5.912-.072-7.192c-.059-1.276-.353-2.449-1.32-3.416C21.449.425 20.276.131 19 .072 17.72.013 17.311 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg> -->
+              <img width="24" height="24" src="insta.png" alt="">
               </a>
             </div>
           </div>
@@ -172,21 +194,68 @@
         <div class="row g-4 justify-content-center">
           <div class="col-md-6">
             <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h4 class="card-title fw-bold mb-2">Water Tank Cleaning CRM</h4>
-                <p class="card-text mb-3">Web app built with PHP &amp; CodeIgniter featuring CRUD operations, service management, and optimized queries.</p>
-                <a href="https://hygienictank.sanluigibhavan.com/" class="link-primary">View Project →</a>
+              <div class="row g-0 align-items-center flex-md-row flex-column">
+                <div class="col-md-5 text-center p-3">
+                  <img src="cords.png" alt="Company Portfolio Screenshot" class="img-fluid rounded-4 shadow" style="height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+                </div>
+                <div class="col-md-7 p-3">
+                  <h4 class="card-title fw-bold mb-2">Company Portfolio</h4>
+                  <p class="card-text mb-3">Responsive website built using HTML, CSS &amp; Bootstrap for optimized cross-browser performance.</p>
+                  <a href="https://cordsinnovations.com/" class="btn btn-outline-primary mb-1">Site Website</a>
+                </div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h4 class="card-title fw-bold mb-2">Company Portfolio</h4>
-                <p class="card-text mb-3">Responsive website built using HTML, CSS &amp; Bootstrap for optimized cross-browser performance.</p>
-                <a href="https://cordsinnovations.com/" class="link-primary">View Project →</a>
+              <div class="row g-0 align-items-center flex-md-row flex-column">
+                <div class="col-md-5 text-center p-3">
+                  <img src="hygeinic.png" alt="Hygeinic Tank Screenshot" class="img-fluid rounded-4 shadow" style="height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+                </div>
+                <div class="col-md-7 p-3">
+                  <h4 class="card-title fw-bold mb-2">Hygeinic Tank</h4>
+                  <p class="card-text mb-3">Web app built with PHP &amp; CodeIgniter featuring CRUD operations, service management, and optimized queries.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="https://hygienictank.sanluigibhavan.comake hovering effects
+                    m" class="btn btn-outline-primary mb-1">Site Website</a>
+                    <a href="https://hygienictank.sanluigibhavan.com/admin/login" class="btn btn-outline-dark mb-1">Admin Panel</a>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+          <!-- More projects (collapsed by default) -->
+          <div class="collapse mt-4" id="moreProjects">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                  <div class="row g-0 align-items-center flex-md-row flex-column">
+                    <div class="col-md-5 text-center p-3">
+                      <img src="project3.png" alt="Simple Calculator Screenshot" class="img-fluid rounded-4 shadow" style="max-height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+                    </div>
+                    <div class="col-md-7 p-3">
+                      <h4 class="card-title fw-bold mb-2">Simple Calculator</h4>
+                      <p class="card-text mb-3">Developed a simple Calculator with basic functionalities</p>
+                      <a href="https://simple-calculator-bice-eight.vercel.app/" class="btn btn-outline-dark mb-1">View Project</a>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                   <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h4 class="card-title fw-bold mb-2">Simple Calculator</h4>
+                    <p class="card-text mb-3">Developed a simple Calculator with basic functionalities</p>
+                    <a href="https://simple-calculator-bice-eight.vercel.app/" class="btn btn-outline-dark">View Project </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Add more projects here as needed -->
+            </div>
+          </div>
+          <div class="col-12 text-center mt-3">
+            <a href="projects.html" class="btn btn-primary btn-lg">See All Projects</a>
           </div>
         </div>
       </div>
