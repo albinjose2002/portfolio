@@ -28,6 +28,21 @@
         </button>
       </div>
     <style>
+      /* Project card and image hover effects */
+      .project-card-modern {
+        transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+      }
+      .project-card-modern:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 12px 32px 0 rgba(99,102,241,0.18), 0 4px 16px 0 rgba(0,0,0,0.12);
+      }
+      .project-card-modern img {
+        transition: transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.4s;
+      }
+      .project-card-modern:hover img {
+        transform: scale(1.07) rotate(-2deg);
+        box-shadow: 0 8px 32px 0 rgba(59,130,246,0.18), 0 2px 16px 0 rgba(0,0,0,0.10);
+      }
       body.dark-mode {
         background: #181a1b !important;
         color: #f1f3f6 !important;
@@ -103,13 +118,19 @@
           localStorage.setItem('theme', 'light');
         }
       }
-      // Detect preferred theme
+      // Detect preferred theme and sync with localStorage
       (function () {
         let theme = localStorage.getItem('theme');
         if (!theme) {
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
         setTheme(theme === 'dark');
+        // Listen for changes to localStorage from other tabs/pages
+        window.addEventListener('storage', function(e) {
+          if (e.key === 'theme') {
+            setTheme(e.newValue === 'dark');
+          }
+        });
       })();
       themeToggleBtn.addEventListener('click', function () {
         setTheme(!document.body.classList.contains('dark-mode'));
@@ -173,21 +194,68 @@
         <div class="row g-4 justify-content-center">
           <div class="col-md-6">
             <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h4 class="card-title fw-bold mb-2">Water Tank Cleaning CRM</h4>
-                <p class="card-text mb-3">Web app built with PHP &amp; CodeIgniter featuring CRUD operations, service management, and optimized queries.</p>
-                <a href="https://hygienictank.sanluigibhavan.com/" class="link-primary">View Project →</a>
+              <div class="row g-0 align-items-center flex-md-row flex-column">
+                <div class="col-md-5 text-center p-3">
+                  <img src="cords.png" alt="Company Portfolio Screenshot" class="img-fluid rounded-4 shadow" style="height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+                </div>
+                <div class="col-md-7 p-3">
+                  <h4 class="card-title fw-bold mb-2">Company Portfolio</h4>
+                  <p class="card-text mb-3">Responsive website built using HTML, CSS &amp; Bootstrap for optimized cross-browser performance.</p>
+                  <a href="https://cordsinnovations.com/" class="btn btn-outline-primary mb-1">Site Website</a>
+                </div>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card shadow-sm h-100">
-              <div class="card-body">
-                <h4 class="card-title fw-bold mb-2">Company Portfolio</h4>
-                <p class="card-text mb-3">Responsive website built using HTML, CSS &amp; Bootstrap for optimized cross-browser performance.</p>
-                <a href="https://cordsinnovations.com/" class="link-primary">View Project →</a>
+              <div class="row g-0 align-items-center flex-md-row flex-column">
+                <div class="col-md-5 text-center p-3">
+                  <img src="hygeinic.png" alt="Hygeinic Tank Screenshot" class="img-fluid rounded-4 shadow" style="height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+                </div>
+                <div class="col-md-7 p-3">
+                  <h4 class="card-title fw-bold mb-2">Hygeinic Tank</h4>
+                  <p class="card-text mb-3">Web app built with PHP &amp; CodeIgniter featuring CRUD operations, service management, and optimized queries.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="https://hygienictank.sanluigibhavan.comake hovering effects
+                    m" class="btn btn-outline-primary mb-1">Site Website</a>
+                    <a href="https://hygienictank.sanluigibhavan.com/admin/login" class="btn btn-outline-dark mb-1">Admin Panel</a>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+          <!-- More projects (collapsed by default) -->
+          <div class="collapse mt-4" id="moreProjects">
+            <div class="row g-4 justify-content-center">
+              <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                  <div class="row g-0 align-items-center flex-md-row flex-column">
+                    <div class="col-md-5 text-center p-3">
+                      <img src="project3.png" alt="Simple Calculator Screenshot" class="img-fluid rounded-4 shadow" style="max-height: 140px; object-fit: cover; width: 100%; background: #f8fafc;">
+                    </div>
+                    <div class="col-md-7 p-3">
+                      <h4 class="card-title fw-bold mb-2">Simple Calculator</h4>
+                      <p class="card-text mb-3">Developed a simple Calculator with basic functionalities</p>
+                      <a href="https://simple-calculator-bice-eight.vercel.app/" class="btn btn-outline-dark mb-1">View Project</a>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                   <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <h4 class="card-title fw-bold mb-2">Simple Calculator</h4>
+                    <p class="card-text mb-3">Developed a simple Calculator with basic functionalities</p>
+                    <a href="https://simple-calculator-bice-eight.vercel.app/" class="btn btn-outline-dark">View Project </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Add more projects here as needed -->
+            </div>
+          </div>
+          <div class="col-12 text-center mt-3">
+            <a href="projects.html" class="btn btn-primary btn-lg">See All Projects</a>
           </div>
         </div>
       </div>
