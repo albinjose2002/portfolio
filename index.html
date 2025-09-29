@@ -11,21 +11,28 @@
   <body>
     <!-- Navbar -->
     <header class="sticky-top bg-white shadow-sm" id="mainHeader">
-      <div class="container d-flex justify-content-between align-items-center py-3">
-        <h1 class="h3 fw-bold text-primary m-0">Albin Jose</h1>
-        <nav>
-          <ul class="nav">
-            <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
-            <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
-            <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
-            <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
-            <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
+      <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light bg-white w-100 p-0">
+          <div class="container-fluid p-0">
+            <a class="navbar-brand fw-bold text-primary" href="#about">Albin Jose</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+              <ul class="navbar-nav ms-auto flex-md-row flex-column text-center gap-2 gap-md-0">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+                <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+              </ul>
+              <button id="themeToggleBtn" class="btn btn-outline-secondary ms-md-3 mt-3 mt-md-0" aria-label="Toggle dark mode">
+                <span id="themeToggleIcon">🌙</span>
+              </button>
+            </div>
+          </div>
         </nav>
-        <button id="themeToggleBtn" class="btn btn-outline-secondary ms-3" aria-label="Toggle dark mode">
-          <span id="themeToggleIcon">🌙</span>
-        </button>
       </div>
     <style>
       /* Project card and image hover effects */
@@ -102,6 +109,23 @@
       .dark-mode .border-top {
         border-top: 1px solid #343a40 !important;
       }
+      .dark-mode .navbar, .dark-mode .navbar-collapse, .dark-mode .navbar-nav, .dark-mode .navbar-toggler {
+        background: #23272b !important;
+        color: #f1f5f9 !important;
+        border-color: #334155 !important;
+      }
+      .dark-mode .navbar-nav .nav-link {
+        color: #f1f5f9 !important;
+      }
+      .dark-mode .navbar-nav .nav-link.active, .dark-mode .navbar-nav .nav-link:focus, .dark-mode .navbar-nav .nav-link:hover {
+        color: #7abaff !important;
+      }
+      .dark-mode .navbar-toggler {
+        border-color: #7abaff !important;
+      }
+      .dark-mode .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(122,186,255,1)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
     </style>
     <script>
       // Theme toggle logic
@@ -145,6 +169,11 @@
         <div class="row align-items-center">
           <div class="col-md-4 text-center mb-4 mb-md-0">
             <img src="albin.png" alt="Albin Jose" class="rounded-circle img-fluid shadow" style="width: 200px; height: 200px; object-fit: cover;" />
+            <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap mt-3">
+              <a href="#contact" class="btn btn-outline-primary mb-2 mb-md-0">Contact me</a>
+              <a href="projects.html" class="btn btn-outline-dark mb-2 mb-md-0">View Projects</a>
+            </div>
+
           </div>
           <div class="col-md-8">
             <h2 class="display-5 fw-bold mb-2">Hi, I'm <span class="text-primary">Albin</span> 👋</h2>
